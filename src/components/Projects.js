@@ -8,7 +8,7 @@ const projects = [
   {
     title: 'Projects for Sargent Manufacturing',
     description: 'A collection of internal tools I developed to improve efficiency and support for the tech team, enhancing our ability to assist customers with exit device inquiries.',
-    link: 'https://www.sargentlock.com/en/products/exit-devices/',
+    link: 'https://www.sargentlock.com/en',
     logo: sargentLogo,
     tools: [
       {
