@@ -1,0 +1,119 @@
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.project-card {
+  background-color: var(--surface-color);
+  border-radius: 12px;
+  padding: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center all direct children */
+  text-align: center; /* Center text for all children */
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.project-info {
+  width: 100%;
+}
+
+.project-image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.project-logo {
+  height: 150px; /* Adjust size as needed */
+  width: auto;
+  border-radius: 25px;
+  margin-bottom: 1rem;
+}
+
+.project-card h3 {
+  margin-top: 0;
+  font-size: 1.75rem;
+  color: var(--text-color);
+  margin-bottom: 0.75rem;
+}
+
+.project-card p {
+  color: var(--text-secondary-color);
+  line-height: 1.7;
+  max-width: 650px; /* Constrain description width */
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1.5rem;
+}
+
+.tools-section {
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.tool-item {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 500;
+  border: 1px solid var(--border-color);
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.tool-item:hover {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--background-color);
+}
+
+.main-project-link {
+  display: inline-block;
+  font-weight: 500;
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.main-project-link:hover {
+  text-decoration: underline;
+  color: #a6c9f8;
+}
+
+.tool-item.wip {
+  position: relative;
+  overflow: hidden;
+}
+
+.wip-label {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: var(--secondary-color);
+  color: var(--background-color);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
