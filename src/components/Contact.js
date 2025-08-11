@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import emailjs from 'emailjs-com';
+import DOMPurify from 'dompurify'; // Import DOMPurify
 import './Contact.css';
 
 const Contact = () => {
@@ -17,11 +18,24 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Sanitize form data before sending
+    const sanitizedData = {
+      name: DOMPurify.sanitize(formData.name),
+      email: DOMPurify.sanitize(formData.email),
+      message: DOMPurify.sanitize(formData.message),
+    };
+
+    const templateParams = {
+      name: sanitizedData.name,
+      email: sanitizedData.email,
+      message: sanitizedData.message,
+    };
+
     emailjs
-      .sendForm(
+      .send(
         process.env.REACT_APP_EMAILJS_SERVICE_ID,
         process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
-        e.target,
+        templateParams,
         process.env.REACT_APP_EMAILJS_PUBLIC_KEY
       )
       .then(
