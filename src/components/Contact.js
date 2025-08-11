@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import emailjs from 'emailjs-com';
 import DOMPurify from 'dompurify'; // Import DOMPurify
+import { motion } from 'framer-motion';
 import './Contact.css';
 
 const Contact = () => {
@@ -56,8 +57,16 @@ const Contact = () => {
     //... your form JSX
     <section id="contact" className="section">
       <h2 className="section-title">Contact Me</h2>
-      <form className="contact-form" onSubmit={handleSubmit}>
-        <input
+      <motion.form
+        className="contact-form"
+        onSubmit={handleSubmit}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, ease: 'easeInOut' }}
+      >
+        <motion.input
+          whileFocus={{ scale: 1.05 }}
           type="text"
           name="name"
           placeholder="Your Name"
@@ -65,7 +74,8 @@ const Contact = () => {
           onChange={handleChange}
           required
         />
-        <input
+        <motion.input
+          whileFocus={{ scale: 1.05 }}
           type="email"
           name="email"
           placeholder="Your Email"
@@ -73,15 +83,18 @@ const Contact = () => {
           onChange={handleChange}
           required
         />
-        <textarea
+        <motion.textarea
+          whileFocus={{ scale: 1.05 }}
           name="message"
           placeholder="Your Message"
           value={formData.message}
           onChange={handleChange}
           required
-        ></textarea>
-        <button type="submit">Send Message</button>
-      </form>
+        ></motion.textarea>
+        <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} type="submit">
+          Send Message
+        </motion.button>
+      </motion.form>
     </section>
   );
 };

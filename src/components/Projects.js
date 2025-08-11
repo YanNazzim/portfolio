@@ -32,7 +32,6 @@ const projects = [
         link: 'https://sargent-cylinders.netlify.app/',
         wip: true,
         wipMessage: "While there are working examples and the website is visitable, it's not 100% complete and doesn't reflect the final form of the project."
-
       },
       {
         name: 'Sargent Thick Door Tool',
@@ -55,7 +54,7 @@ const projects = [
 
 const Projects = () => {
     const [selectedTool, setSelectedTool] = useState(null);
-  
+
     return (
       <section id="projects" className="section">
         <h2 className="section-title">Projects</h2>
@@ -67,7 +66,8 @@ const Projects = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              transition={{ duration: 0.5, delay: index * 0.1, ease: "easeInOut" }}
             >
               <div className="project-info">
                 {project.logo && <img src={project.logo} alt="Project Logo" className="project-logo" />}
@@ -76,7 +76,7 @@ const Projects = () => {
                 <p>{project.description}</p>
                 {!project.tools && project.link && <a href={project.link} target="_blank" rel="noopener noreferrer" className="main-project-link">View on GitHub</a>}
               </div>
-  
+
               {project.tools && (
                 <div className="tools-section">
                   <div className="tools-grid">
@@ -102,5 +102,5 @@ const Projects = () => {
       </section>
     );
   };
-  
+
   export default Projects;

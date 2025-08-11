@@ -117,3 +117,9 @@
   border-radius: 4px;
   text-transform: uppercase;
 }
+
+@media (max-width: 768px) {
+  .project-card {
+    padding: 1.5rem;
+  }
+}

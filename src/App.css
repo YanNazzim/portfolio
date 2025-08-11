@@ -27,3 +27,13 @@
   color: var(--primary-color);
   text-align: center;
 }
+
+@media (max-width: 768px) {
+  .section {
+    padding: 3rem 0;
+  }
+  .section-title {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+  }
+}
