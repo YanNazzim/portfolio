@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import './About.css';
-import profilePic from '../assets/profile-pic.png'; // Make sure to add a profile picture here
+import profilePic from '../assets/profile-pic.png';
 
 const About = () => {
   return (
@@ -11,14 +11,14 @@ const About = () => {
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.8, ease: "easeInOut" }}
+      transition={{ type: "spring", stiffness: 100, damping: 15 }} /* Revamped transition */
     >
       <div className="about-content">
         <div className="about-text">
             <h1 className="about-headline">Yan Gonzalez</h1>
             <h2 className="about-subheadline">Self-taught Project Manager & Tech Enthusiast</h2>
             <p>
-              Driven Tech Support Rep at Sargent Manufacturing with a passion for web and software development. My dream is to lead innovative projects in manufacturing, software development, or AI, and I specialize in creating tools and applications that improve technical processes and user experiences (UI/UX).
+              I am a passionate <span>software and web developer</span> dedicated to solving problems and creating tools that enhance technical processes and user experiences. My goal is to lead innovative projects in manufacturing, software development, or AI, using my skills to turn ideas into impactful solutions.
             </p>
         </div>
         <div className="about-image-container">
@@ -26,8 +26,8 @@ const About = () => {
               src={profilePic}
               alt="Yan Gonzalez"
               className="about-image"
-              whileHover={{ scale: 1.05, transition: { duration: 0.2, ease: "easeInOut" } }}
-              transition={{ duration: 0.3 }}
+              whileHover={{ scale: 1.1 }} /* Slight increase in scale for hover */
+              transition={{ type: "spring", stiffness: 300, damping: 10 }} /* Snappier spring transition */
             />
         </div>
       </div>

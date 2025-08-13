@@ -45,6 +45,11 @@
   max-width: 600px;
 }
 
+.about-text p span {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
 .about-image-container {
   flex: 1;
   display: flex;

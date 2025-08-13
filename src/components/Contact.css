@@ -10,8 +10,8 @@
 .contact-form textarea {
   padding: 1rem;
   border-radius: 5px;
-  border: 1px solid var(--primary-color);
-  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  background-color: var(--surface-color);
   color: var(--text-color);
   font-size: 1rem;
 }
@@ -28,5 +28,5 @@
 }
 
 .contact-form button:hover {
-  background-color: var(--secondary-color);
+  background-color: #a6c9f8;
 }

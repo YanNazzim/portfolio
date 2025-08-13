@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import Modal from './Modal';
+import { motion, AnimatePresence } from 'framer-motion';
+import { IoClose } from 'react-icons/io5';
 import './Projects.css';
 import sargentLogo from '../assets/Sargent Logo.png';
 
 const projects = [
   {
     title: 'Projects for Sargent Manufacturing',
-    description: 'A collection of internal tools I developed to improve efficiency and support for the tech team, enhancing our ability to assist customers with exit device inquiries.',
+    description: 'A collection of internal tools I developed to improve efficiency and support for the tech team, enhancing our ability to assist customers with all Sargent Product inquiries.',
     link: 'https://www.sargentlock.com/en',
     logo: sargentLogo,
     tools: [
@@ -31,7 +31,7 @@ const projects = [
         image: sargentLogo,
         link: 'https://sargent-cylinders.netlify.app/',
         wip: true,
-        wipMessage: "While there are working examples and the website is visitable, it's not 100% complete and doesn't reflect the final form of the project."
+        wipMessage: "While there are working examples and the website is visitable, it's not 100% complete and doesn't reflect the final form of the project. Give it a try!"
       },
       {
         name: 'Sargent Thick Door Tool',
@@ -39,7 +39,7 @@ const projects = [
         image: sargentLogo,
         link: 'https://sargent-thickdoor.netlify.app/',
         wip: true,
-        wipMessage: "While there are working examples and the website is visitable, it's not 100% complete and doesn't reflect the final form of the project."
+        wipMessage: "While there are working examples and the website is visitable, it's not 100% complete and doesn't reflect the final form of the project. Give it a try!"
       },
     ],
   },
@@ -55,6 +55,10 @@ const projects = [
 const Projects = () => {
     const [selectedTool, setSelectedTool] = useState(null);
 
+    const handleToolClick = (tool) => {
+      setSelectedTool(selectedTool === tool ? null : tool);
+    };
+  
     return (
       <section id="projects" className="section">
         <h2 className="section-title">Projects</h2>
@@ -66,8 +70,8 @@ const Projects = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              transition={{ duration: 0.5, delay: index * 0.1, ease: "easeInOut" }}
+              whileHover={{ y: -7, scale: 1.03 }} /* Slightly more pronounced hover effect */
+              transition={{ type: "spring", stiffness: 200, damping: 15 }} /* Revamped transition */
             >
               <div className="project-info">
                 {project.logo && <img src={project.logo} alt="Project Logo" className="project-logo" />}
@@ -83,24 +87,56 @@ const Projects = () => {
                     {project.tools.map((tool, toolIndex) => (
                       <motion.div
                         key={toolIndex}
-                        className={`tool-item ${tool.wip ? 'wip' : ''}`}
-                        onClick={() => setSelectedTool(tool)}
-                        whileHover={{ backgroundColor: 'var(--primary-color)', color: 'var(--background-color)' }}
+                        className={`tool-item ${tool.wip ? 'wip' : ''} ${selectedTool === tool ? 'selected' : ''}`}
+                        onClick={() => handleToolClick(tool)}
+                        whileHover={{ scale: 1.08 }} /* Snappier hover effect */
+                        transition={{ type: "spring", stiffness: 500, damping: 12 }} /* Very snappy spring transition */
                       >
                         {tool.name}
-                        {tool.wip && <span className="wip-label">In Progress</span>}
                       </motion.div>
                     ))}
                   </div>
                   {project.link && <a href={project.link} target="_blank" rel="noopener noreferrer" className="main-project-link">Learn More About Sargent Manufacturing</a>}
                 </div>
               )}
+              
+              <AnimatePresence>
+                {selectedTool && project.tools?.includes(selectedTool) && (
+                  <motion.div
+                    layout
+                    className="tool-details-container"
+                    initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                    animate={{ opacity: 1, height: 'auto', marginTop: '2rem' }}
+                    exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }} /* Revamped spring transition */
+                  >
+                    <motion.img layout="position" src={selectedTool.image} alt={selectedTool.name} className="tool-details-image" />
+                    <motion.div layout="position" className="tool-details-text">
+                      <h2>{selectedTool.name}</h2>
+                      <p>{selectedTool.description}</p>
+                      {selectedTool.wip && (
+                        <p className="wip-message">
+                          <strong>Work in Progress:</strong> {selectedTool.wipMessage}
+                        </p>
+                      )}
+                    </motion.div>
+                    {selectedTool.link && (
+                      <motion.a layout="position" href={selectedTool.link} className="tool-details-link" target="_blank" rel="noopener noreferrer">
+                        View Live Tool
+                      </motion.a>
+                    )}
+                    <motion.button layout="position" className="close-details-button" onClick={() => setSelectedTool(null)}>
+                      <IoClose />
+                    </motion.button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
             </motion.div>
           ))}
         </div>
-        {selectedTool && <Modal selectedTool={selectedTool} setSelectedTool={setSelectedTool} />}
       </section>
     );
   };
-
+  
   export default Projects;

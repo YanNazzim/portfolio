@@ -8,16 +8,15 @@
   background-color: var(--surface-color);
   border-radius: 12px;
   padding: 2rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease-in-out;
   border: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center all direct children */
-  text-align: center; /* Center text for all children */
+  align-items: center;
+  text-align: center;
 }
 
 .project-card:hover {
-  transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
@@ -36,7 +35,7 @@
 }
 
 .project-logo {
-  height: 150px; /* Adjust size as needed */
+  height: 150px;
   width: auto;
   border-radius: 25px;
   margin-bottom: 1rem;
@@ -52,7 +51,7 @@
 .project-card p {
   color: var(--text-secondary-color);
   line-height: 1.7;
-  max-width: 650px; /* Constrain description width */
+  max-width: 650px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 1.5rem;
@@ -64,13 +63,15 @@
 }
 
 .tools-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centers the items horizontally */
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
 .tool-item {
+  min-width: 180px; /* Maintains the min-width from your old grid setup */
   background-color: rgba(0, 0, 0, 0.2);
   padding: 1rem;
   border-radius: 8px;
@@ -79,8 +80,10 @@
   font-weight: 500;
   border: 1px solid var(--border-color);
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  position: relative;
 }
 
+.tool-item.selected,
 .tool-item:hover {
   background-color: var(--primary-color);
   border-color: var(--primary-color);
@@ -100,22 +103,103 @@
   color: #a6c9f8;
 }
 
-.tool-item.wip {
-  position: relative;
-  overflow: hidden;
+.tool-item.wip::after {
+  content: 'In Progress';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: #e74c3c;
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.wip-label {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background-color: var(--secondary-color);
-  color: var(--background-color);
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 2px 6px;
+/* New styles for the expanded details view */
+.tool-details-container {
+  width: 100%;
+  background-color: #3c4043;
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.tool-details-image {
+  width: 100px;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.tool-details-text h2 {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.tool-details-text p {
+  color: var(--text-secondary-color);
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+.wip-message {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-left: 4px solid var(--secondary-color);
   border-radius: 4px;
-  text-transform: uppercase;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.tool-details-link {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.tool-details-link:hover {
+  background-color: #a6c9f8;
+  transform: translateY(-2px);
+}
+
+.close-details-button {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-secondary-color);
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 0.5rem;
+  line-height: 0;
+}
+
+.close-details-button:hover {
+  color: var(--text-color);
 }
 
 @media (max-width: 768px) {

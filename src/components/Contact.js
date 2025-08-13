@@ -63,10 +63,11 @@ const Contact = () => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5, ease: 'easeInOut' }}
+        transition={{ type: "spring", stiffness: 100, damping: 20 }} /* Revamped form transition */
       >
         <motion.input
-          whileFocus={{ scale: 1.05 }}
+          whileFocus={{ scale: 1.02 }} /* Snappier focus effect */
+          transition={{ type: "spring", stiffness: 500, damping: 10 }} /* Very snappy spring transition */
           type="text"
           name="name"
           placeholder="Your Name"
@@ -75,7 +76,8 @@ const Contact = () => {
           required
         />
         <motion.input
-          whileFocus={{ scale: 1.05 }}
+          whileFocus={{ scale: 1.02 }} /* Snappier focus effect */
+          transition={{ type: "spring", stiffness: 500, damping: 10 }} /* Very snappy spring transition */
           type="email"
           name="email"
           placeholder="Your Email"
@@ -84,14 +86,17 @@ const Contact = () => {
           required
         />
         <motion.textarea
-          whileFocus={{ scale: 1.05 }}
+          whileFocus={{ scale: 1.02 }} /* Snappier focus effect */
+          transition={{ type: "spring", stiffness: 500, damping: 10 }} /* Very snappy spring transition */
           name="message"
           placeholder="Your Message"
           value={formData.message}
           onChange={handleChange}
           required
         ></motion.textarea>
-        <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} type="submit">
+        <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} type="submit"
+        transition={{ type: "spring", stiffness: 500, damping: 10 }}>
+          {/* Snappy button transitions */}
           Send Message
         </motion.button>
       </motion.form>
