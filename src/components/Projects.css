@@ -25,11 +25,12 @@
 }
 
 .project-image {
-  width: 100%;
+  width: auto;
+  max-width: 300px; /* New rule to enforce the limit */
   height: auto;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  border-radius: 8px;
+  aspect-ratio: 16 / 9; /* You might want to remove this if the image isn't 16:9 */
+  object-fit: contain; /* Change from cover to contain to avoid cropping */
+  border-radius: 25px;
   margin-bottom: 1.5rem;
   border: 1px solid var(--border-color);
 }
@@ -119,88 +120,7 @@
   letter-spacing: 0.5px;
 }
 
-/* New styles for the expanded details view */
-.tool-details-container {
-  width: 100%;
-  background-color: #3c4043;
-  border-radius: 12px;
-  padding: 2rem;
-  border: 1px solid var(--border-color);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
 
-.tool-details-image {
-  width: 100px;
-  height: auto;
-  border-radius: 12px;
-  margin-bottom: 1rem;
-}
-
-.tool-details-text h2 {
-  color: var(--primary-color);
-  font-size: 1.5rem;
-  margin-top: 0;
-  margin-bottom: 0.75rem;
-}
-
-.tool-details-text p {
-  color: var(--text-secondary-color);
-  line-height: 1.7;
-  margin-bottom: 0;
-}
-
-.wip-message {
-  margin-top: 1.5rem;
-  padding: 1rem;
-  background-color: rgba(0, 0, 0, 0.2);
-  border-left: 4px solid var(--secondary-color);
-  border-radius: 4px;
-  font-size: 0.9rem;
-  text-align: left;
-}
-
-.tool-details-link {
-  display: inline-block;
-  margin-top: 1.5rem;
-  padding: 0.7rem 1.5rem;
-  border: none;
-  border-radius: 8px;
-  background-color: var(--primary-color);
-  color: var(--background-color);
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background-color 0.2s, transform 0.2s;
-}
-
-.tool-details-link:hover {
-  background-color: #a6c9f8;
-  transform: translateY(-2px);
-}
-
-.close-details-button {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  color: var(--text-secondary-color);
-  cursor: pointer;
-  transition: color 0.2s;
-  padding: 0.5rem;
-  line-height: 0;
-}
-
-.close-details-button:hover {
-  color: var(--text-color);
-}
 
 @media (max-width: 768px) {
   .project-card {

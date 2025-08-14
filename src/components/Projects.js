@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { IoClose } from 'react-icons/io5';
+import { motion } from 'framer-motion';
+import Modal from './Modal';
 import './Projects.css';
 import sargentLogo from '../assets/Sargent Logo.png';
+import ACRLogo from '../assets/ACRlogo.png';
+import fidgetsImage from '../assets/fidgets.png';
 
 const projects = [
   {
@@ -10,6 +12,7 @@ const projects = [
     description: 'A collection of internal tools I developed to improve efficiency and support for the tech team, enhancing our ability to assist customers with all Sargent Product inquiries.',
     link: 'https://www.sargentlock.com/en',
     logo: sargentLogo,
+    linkText: 'Learn More About Sargent Manufacturing',
     tools: [
       {
         name: 'Sargent Templates',
@@ -44,99 +47,93 @@ const projects = [
     ],
   },
   {
-    title: 'Personal Portfolio Website',
-    description: 'A responsive, dark-mode portfolio built with React to showcase my skills in front-end development, project management, and UI/UX design principles.',
-    link: 'https://github.com/YanNazzim/portfolio',
-    image: 'https://via.placeholder.com/1200x600?text=Portfolio+Screenshot',
+    title: 'Behavioral Health Clinic Marketing Campaign',
+    description: 'A project involving the design, prototyping, and mass manufacturing of pain stim fidget toys for a local behavioral health clinic, as well as a website revamp.',
+    link: 'https://www.acrcounselingllc.com/',
+    logo: ACRLogo,
+    linkText: 'Learn More About ACR Counseling',
+    tools: [
+      {
+        name: 'Fidget Toy Production',
+        description: 'Designed, prototyped, and mass-manufactured branded pain stim fidget toys for a local behavioral health clinic.',
+        image: fidgetsImage,
+        link: fidgetsImage,
+        imageAsLinkOnly: true,
+        wip: false,
+      },
+      {
+        name: 'Website Revamp',
+        description: 'A complete overhaul of the clinic\'s existing website to improve user experience and modernize the design.',
+        image: ACRLogo,
+        link: 'https://acr-counseling.netlify.app',
+        imageIsLink: false, // Image will not be a link
+        wip: true,
+        wipMessage: "The website revamp is currently in the design and development phase. Check back soon for updates!"
+      },
+    ],
   },
 ];
-
 
 const Projects = () => {
     const [selectedTool, setSelectedTool] = useState(null);
 
-    const handleToolClick = (tool) => {
-      setSelectedTool(selectedTool === tool ? null : tool);
+    const openModal = (tool) => {
+        setSelectedTool(tool);
     };
-  
+
     return (
-      <section id="projects" className="section">
-        <h2 className="section-title">Projects</h2>
-        <div className="projects-grid">
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              className="project-card"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              whileHover={{ y: -7, scale: 1.03 }} /* Slightly more pronounced hover effect */
-              transition={{ type: "spring", stiffness: 200, damping: 15 }} /* Revamped transition */
-            >
-              <div className="project-info">
-                {project.logo && <img src={project.logo} alt="Project Logo" className="project-logo" />}
-                {project.image && !project.tools && <img src={project.image} alt={project.title} className="project-image" />}
-                <h3>{project.title}</h3>
-                <p>{project.description}</p>
-                {!project.tools && project.link && <a href={project.link} target="_blank" rel="noopener noreferrer" className="main-project-link">View on GitHub</a>}
-              </div>
-
-              {project.tools && (
-                <div className="tools-section">
-                  <div className="tools-grid">
-                    {project.tools.map((tool, toolIndex) => (
-                      <motion.div
-                        key={toolIndex}
-                        className={`tool-item ${tool.wip ? 'wip' : ''} ${selectedTool === tool ? 'selected' : ''}`}
-                        onClick={() => handleToolClick(tool)}
-                        whileHover={{ scale: 1.08 }} /* Snappier hover effect */
-                        transition={{ type: "spring", stiffness: 500, damping: 12 }} /* Very snappy spring transition */
-                      >
-                        {tool.name}
-                      </motion.div>
-                    ))}
-                  </div>
-                  {project.link && <a href={project.link} target="_blank" rel="noopener noreferrer" className="main-project-link">Learn More About Sargent Manufacturing</a>}
-                </div>
-              )}
-              
-              <AnimatePresence>
-                {selectedTool && project.tools?.includes(selectedTool) && (
-                  <motion.div
-                    layout
-                    className="tool-details-container"
-                    initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                    animate={{ opacity: 1, height: 'auto', marginTop: '2rem' }}
-                    exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }} /* Revamped spring transition */
-                  >
-                    <motion.img layout="position" src={selectedTool.image} alt={selectedTool.name} className="tool-details-image" />
-                    <motion.div layout="position" className="tool-details-text">
-                      <h2>{selectedTool.name}</h2>
-                      <p>{selectedTool.description}</p>
-                      {selectedTool.wip && (
-                        <p className="wip-message">
-                          <strong>Work in Progress:</strong> {selectedTool.wipMessage}
-                        </p>
-                      )}
+        <section id="projects" className="section">
+            <h2 className="section-title">Projects</h2>
+            <div className="projects-grid">
+                {projects.map((project, index) => (
+                    <motion.div
+                        key={index}
+                        className="project-card"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        whileHover={{ y: -7, scale: 1.03 }}
+                        transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                    >
+                        <div className="project-info">
+                            {project.logo && <img src={project.logo} alt="Project Logo" className="project-logo" />}
+                            {project.image && !project.tools && <img src={project.image} alt={project.title} className="project-image" />}
+                            <h3>{project.title}</h3>
+                            <p>{project.description}</p>
+                            {!project.tools && project.link && (
+                                <a href={project.link} target="_blank" rel="noopener noreferrer" className="main-project-link">
+                                    View on GitHub
+                                </a>
+                            )}
+                        </div>
+                        {project.tools && (
+                            <div className="tools-section">
+                                <div className="tools-grid">
+                                    {project.tools.map((tool, toolIndex) => (
+                                        <motion.div
+                                            key={toolIndex}
+                                            className={`tool-item ${tool.wip ? 'wip' : ''}`}
+                                            onClick={() => openModal(tool)}
+                                            whileHover={{ scale: 1.08 }}
+                                            transition={{ type: "spring", stiffness: 500, damping: 12 }}
+                                        >
+                                            {tool.name}
+                                        </motion.div>
+                                    ))}
+                                </div>
+                                {project.link && project.linkText && (
+                                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="main-project-link">
+                                        {project.linkText}
+                                    </a>
+                                )}
+                            </div>
+                        )}
                     </motion.div>
-                    {selectedTool.link && (
-                      <motion.a layout="position" href={selectedTool.link} className="tool-details-link" target="_blank" rel="noopener noreferrer">
-                        View Live Tool
-                      </motion.a>
-                    )}
-                    <motion.button layout="position" className="close-details-button" onClick={() => setSelectedTool(null)}>
-                      <IoClose />
-                    </motion.button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-            </motion.div>
-          ))}
-        </div>
-      </section>
+                ))}
+            </div>
+            {selectedTool && <Modal selectedTool={selectedTool} setSelectedTool={setSelectedTool} />}
+        </section>
     );
-  };
-  
-  export default Projects;
+};
+
+export default Projects;
